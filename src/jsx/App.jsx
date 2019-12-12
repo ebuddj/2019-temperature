@@ -145,7 +145,7 @@ class App extends Component {
         active_country_id:i,
         active_country_name:data.country,
         active_country_temp:(data.data.reduce((total, current) => total + current.value, 0) / data.data.length)
-      }));
+      }), this.getCurrentYearAverageTemp);
     }
   }
   // shouldComponentUpdate(nextProps, nextState) {}
