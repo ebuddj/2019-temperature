@@ -166,7 +166,7 @@ class App extends Component {
   render() {
     let scales = [], temperature = scale_max;
     while (temperature > scale_min) {
-      temperature = temperature - 0.02;
+      temperature = temperature - 0.05;
       scales.push(temperature);
     }
     return (
@@ -236,7 +236,7 @@ class App extends Component {
         <div className={style.scales_container}>
           {
             scales.map((scale, i) => {
-              return ((this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.02)) ? <div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><span className={style.scale_text}>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed(1)}°C</span></div> : <div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max)}}></div>)
+              return ((this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.05)) ? <div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><span className={style.scale_text}>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed(1)}°C</span></div> : <div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max)}}></div>)
             })
           }
         </div>
