@@ -206,6 +206,7 @@ table {
   font-size: 60px;
 }
 .app___2khK2 .meta_container___3p0xG input {
+  cursor: pointer;
   display: block;
   pointer-events: auto;
   width: 170px;
