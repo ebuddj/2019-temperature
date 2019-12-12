@@ -45,7 +45,6 @@ class App extends Component {
     this.toggleInterval(year_start);
   }
   toggleInterval(year) {
-    console.log(this.state)
     if (parseInt(year) === year_end) {
       year = year_start
     }
