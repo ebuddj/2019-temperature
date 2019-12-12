@@ -18,7 +18,7 @@ class App extends Component {
     this.state = {
       active_country_id:null,
       active_country_name:'ALL',
-      active_country_temp:0,
+      active_country_temp:null,
       controls_text:'Pause',
       current_year_average_temp:null,
       interval_play:false,
@@ -45,6 +45,10 @@ class App extends Component {
     this.toggleInterval(year_start);
   }
   toggleInterval(year) {
+    console.log(this.state)
+    if (parseInt(year) === year_end) {
+      year = year_start
+    }
     let self = this;
     if (this.state.interval === true) {
       clearInterval(interval);
@@ -60,7 +64,7 @@ class App extends Component {
           year = year_end;
           self.setState((state, props) => ({
             controls_text:'Play',
-            interval:false,
+            interval:false
           }));
         }
         else {
@@ -124,7 +128,9 @@ class App extends Component {
     clearInterval(interval);
     let year = event.target.value;
     this.setState((state, props) => ({
+      controls_text:'Play',
       current_data:this.state.data[year],
+      interval:false,
       year:year
     }), this.getCurrentYearAverageTemp);
   }
@@ -200,7 +206,7 @@ class App extends Component {
         <div className={style.meta_container}>
           <div className={style.active_country_container}>
             <span className={style.active_country_name}>{this.state.active_country_name}</span>
-            <span className={style.active_country_temp}>{this.state.active_country_temp !== 0 && (this.state.active_country_temp > 0 ? '+' : '') + this.state.active_country_temp.toFixed(1) + '°C'}</span>
+            <span className={style.active_country_temp}>{this.state.active_country_temp !== null && (this.state.active_country_temp > 0 ? '+' : '') + this.state.active_country_temp.toFixed(1) + '°C'}</span>
           </div>
           <div className={style.year_container}>{this.state.year}</div>
           <input type="range" min={year_start} value={this.state.year} max={year_end} onChange={(event) => this.handleYearChange(event)}/>
