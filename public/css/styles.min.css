@@ -1,0 +1,258 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:600.css);
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* General styles */
+.clearfix___1yHqr {
+  zoom: 1;
+}
+.clearfix___1yHqr:after {
+  clear: both;
+  content: ' ';
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+.ss-terms___dMEZ6 {
+  margin: 40px auto auto auto;
+  max-width: 450px;
+}
+.meta___3gcNx {
+  color: #333;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 0 10px 40px 10px;
+}
+.clear_both___a0DL_ {
+  clear: both;
+}
+.hidden___1aMNf {
+  display: none;
+}
+.nowrap___2n1o8 {
+  white-space: nowrap;
+}
+.app___2khK2 {
+  background-color: #333;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+.app___2khK2 .month_names_container___PcrNH {
+  pointer-events: none;
+  position: relative;
+  z-index: 1;
+}
+.app___2khK2 .month_names_container___PcrNH .month_name___3BLGA {
+  color: #fff;
+  display: inline-block;
+  font-family: Source Code Pro;
+  font-size: 30px;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 2px 2px 10px #666;
+  width: 8.33333333%;
+}
+@media all and (max-width: 800px) {
+  .app___2khK2 .month_names_container___PcrNH .month_name___3BLGA {
+    font-size: 22px;
+  }
+}
+@media all and (max-width: 600px) {
+  .app___2khK2 .month_names_container___PcrNH .month_name___3BLGA {
+    font-size: 16px;
+  }
+}
+.app___2khK2 .countries_container___2aB6Z {
+  margin-top: -30px;
+  position: relative;
+  z-index: 0;
+}
+.app___2khK2 .countries_container___2aB6Z .country_container___1QA7i {
+  cursor: pointer;
+  height: 0.51020408vh;
+  transition: height 0.3s;
+  font-size: 0;
+}
+.app___2khK2 .countries_container___2aB6Z .country_container___1QA7i.county_container_active___3B4pS {
+  border-bottom: 2px solid #ffffff;
+  box-sizing: border-box;
+  height: 100vh;
+}
+.app___2khK2 .countries_container___2aB6Z .country_container___1QA7i.county_container_unactive___zgLJv {
+  height: 0;
+}
+.app___2khK2 .countries_container___2aB6Z .country_container___1QA7i .country_name___1ovzB {
+  display: inline-block;
+  display: none;
+  float: left;
+  font-size: 16px;
+  font-weight: 600;
+  height: 40px;
+  line-height: 40px;
+  margin-right: 5px;
+  text-align: right;
+  vertical-align: middle;
+  width: 50px;
+}
+.app___2khK2 .countries_container___2aB6Z .country_container___1QA7i .month_value___3IKOm {
+  display: inline-block;
+  height: 100%;
+  opacity: 1;
+  position: relative;
+  width: 8.33333333%;
+  /* Show the tooltip text when you mouse over the tooltip container */
+}
+.app___2khK2 .countries_container___2aB6Z .country_container___1QA7i .month_value___3IKOm .tooltiptext___1KQDN {
+  background-color: #333;
+  border-radius: 3px;
+  bottom: 125%;
+  color: #fff;
+  font-size: 12px;
+  line-height: 14px;
+  left: 50%;
+  font-family: Source Code Pro;
+  margin-left: -52px;
+  opacity: 0;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  position: absolute;
+  text-align: left;
+  transition: opacity 0.3s;
+  visibility: hidden;
+  width: 104px;
+  z-index: 1;
+}
+.app___2khK2 .countries_container___2aB6Z .country_container___1QA7i .month_value___3IKOm .tooltiptext___1KQDN:after {
+  border-color: #333 transparent transparent transparent;
+  border-style: solid;
+  border-width: 5px;
+  content: '';
+  left: 50%;
+  margin-left: -5px;
+  position: absolute;
+  top: 100%;
+}
+.app___2khK2 .countries_container___2aB6Z .country_container___1QA7i .month_value___3IKOm:hover .tooltiptext___1KQDN {
+  opacity: 1;
+  visibility: visible;
+}
+.app___2khK2 .meta_container___3p0xG {
+  bottom: 30px;
+  color: #fff;
+  font-family: Source Code Pro;
+  left: 30px;
+  position: absolute;
+  text-shadow: 2px 2px 10px #666;
+  z-index: 1;
+}
+.app___2khK2 .meta_container___3p0xG .active_country_container___2bomm .active_country_name___1Phws {
+  font-size: 32px;
+}
+.app___2khK2 .meta_container___3p0xG .active_country_container___2bomm .active_country_name___1Phws:after {
+  content: ' ';
+}
+.app___2khK2 .meta_container___3p0xG .active_country_container___2bomm .active_country_temp___34xgG {
+  font-size: 26px;
+}
+.app___2khK2 .meta_container___3p0xG .year_container___2v5FN {
+  letter-spacing: 0.18em;
+  font-size: 60px;
+}
+.app___2khK2 .meta_container___3p0xG input {
+  width: 170px;
+}
+.app___2khK2 .meta_container___3p0xG .controls_container___20Jjq {
+  cursor: pointer;
+  margin-top: 5px;
+}
+.app___2khK2 .meta_container___3p0xG .controls_container___20Jjq:hover {
+  color: #ccc;
+}
+.app___2khK2 .scales_container___1pYId {
+  bottom: 30px;
+  font-family: Source Code Pro;
+  opacity: 1;
+  position: absolute;
+  right: 30px;
+  width: 60px;
+}
+.app___2khK2 .scales_container___1pYId:after,
+.app___2khK2 .scales_container___1pYId:before {
+  color: #fff;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 600;
+  position: absolute;
+  text-align: center;
+  text-shadow: 2px 2px 10px #666;
+  width: 60px;
+}
+.app___2khK2 .scales_container___1pYId:before {
+  content: '+2°C';
+  margin-top: 5px;
+  top: 0;
+}
+.app___2khK2 .scales_container___1pYId:after {
+  bottom: 0;
+  content: '-2°C';
+  margin-bottom: 5px;
+}
+.app___2khK2 .scales_container___1pYId .scale_container___3Z0k5 {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  height: 2px;
+  text-align: center;
+  width: 100%;
+}
+.app___2khK2 .scales_container___1pYId .scale_container___3Z0k5 .scale_text___3RxI7 {
+  position: relative;
+  top: -15px;
+}
+
