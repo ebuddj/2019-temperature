@@ -21,6 +21,7 @@ class App extends Component {
       active_country_temp:null,
       controls_text:'Pause',
       current_year_average_temp:null,
+      expand:false,
       interval_play:false,
       year:year_start
     }
@@ -133,19 +134,28 @@ class App extends Component {
       year:year
     }), this.getCurrentYearAverageTemp);
   }
-  handleCountryClick(data, i) {
-    if (this.state.active_country_id === i) {
+  handleCountryClick(data, i, status) {
+    if (status === 'clicked') {
       this.setState((state, props) => ({
-        active_country_id:null,
-        active_country_name:'ALL'
-      }), this.getCurrentYearAverageTemp);
+        expand:true
+      }));
     }
     else {
-      this.setState((state, props) => ({
-        active_country_id:i,
-        active_country_name:data.country,
-        active_country_temp:(data.data.reduce((total, current) => total + current.value, 0) / data.data.length)
-      }), this.getCurrentYearAverageTemp);
+      if (this.state.active_country_id === i) {
+        this.setState((state, props) => ({
+          active_country_id:null,
+          active_country_name:'ALL',
+          expand:false
+        }), this.getCurrentYearAverageTemp);
+      }
+      else {
+        this.setState((state, props) => ({
+          active_country_id:i,
+          active_country_name:data.country,
+          active_country_temp:(data.data.reduce((total, current) => total + current.value, 0) / data.data.length),
+          expand:false
+        }), this.getCurrentYearAverageTemp);
+      }
     }
   }
   // shouldComponentUpdate(nextProps, nextState) {}
@@ -174,17 +184,29 @@ class App extends Component {
           {
             this.state.current_data && this.state.current_data.map((data, i) => {
               let country_container_class;
-              if (this.state.active_country_id === i) {
-                country_container_class = style.county_container_active + ' ' + style.country_container;
-              }
-              else if (this.state.active_country_id !== null) {
-                country_container_class = style.county_container_unactive + ' ' + style.country_container;
+              let status = '';
+              if (this.state.expand === true) {
+                if (this.state.active_country_id === i) {
+                  country_container_class = style.country_container_expanded + ' ' + style.country_container;
+                }
+                else {
+                  country_container_class = style.country_container_collapsed + ' ' + style.country_container;
+                }
               }
               else {
-                country_container_class = style.country_container;
+                if (this.state.active_country_id === i) {
+                  status = 'clicked';
+                  country_container_class = style.county_container_active + ' ' + style.country_container;
+                }
+                else if (this.state.active_country_id !== null) {
+                  country_container_class = style.county_container_unactive + ' ' + style.country_container;
+                }
+                else {
+                  country_container_class = style.country_container;
+                }
               }
               return (
-                <div key={i} className={country_container_class} onClick={() => this.handleCountryClick(data, i)}>
+                <div key={i} className={country_container_class} onClick={() => this.handleCountryClick(data, i, status)}>
                   <div className={style.country_name}>{data.country}</div>
                   {
                     data.data.map((month_data, i) => {

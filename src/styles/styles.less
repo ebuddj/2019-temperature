@@ -4,8 +4,8 @@
 .app {
   background-color: #333;
   height: 100vh;
-  width: 100vw;
   overflow: hidden;
+  width: 100vw;
   .month_names_container {
     pointer-events: none;
     position: relative;
@@ -34,17 +34,25 @@
     z-index: 0;
     .country_container {
       cursor: pointer;
+      font-size: 0;
       height: (1 / 196) * 100vh;
       transition: height 0.3s;
       &.county_container_active {
-        border-bottom: 2px solid rgba(255, 255, 255, 1);
-        box-sizing: border-box;
-        height: 100vh;
+        border-bottom: 1px solid rgba(255, 255, 255, 1);
       }
       &.county_container_unactive {
+        opacity: 0.2;
+        .month_value:hover .tooltiptext {
+          display: none;
+          visibility: hidden;
+        }
+      }
+      &.country_container_expanded {
+        height: 100vh;
+      }
+      &.country_container_collapsed {
         height: 0;
       }
-      font-size: 0;
       .country_name {
         display: inline-block;
         display: none;
@@ -67,7 +75,7 @@
         .tooltiptext {
           background-color: #333;
           border-radius: 3px;
-          bottom: 125%;
+          bottom: 200%;
           color: #fff;
           font-size: 12px;
           line-height: 14px;
@@ -94,7 +102,6 @@
             top: 100%;
           }
         }
-        /* Show the tooltip text when you mouse over the tooltip container */
         &:hover .tooltiptext {
           opacity: 1;
           visibility: visible;
