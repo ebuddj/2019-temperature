@@ -80,8 +80,8 @@ table {
 .app___2khK2 {
   background-color: #333;
   height: 100vh;
-  width: 100vw;
   overflow: hidden;
+  width: 100vw;
 }
 .app___2khK2 .month_names_container___PcrNH {
   pointer-events: none;
@@ -115,16 +115,24 @@ table {
 }
 .app___2khK2 .countries_container___2aB6Z .country_container___1QA7i {
   cursor: pointer;
+  font-size: 0;
   height: 0.51020408vh;
   transition: height 0.3s;
-  font-size: 0;
 }
 .app___2khK2 .countries_container___2aB6Z .country_container___1QA7i.county_container_active___3B4pS {
-  border-bottom: 2px solid #ffffff;
-  box-sizing: border-box;
-  height: 100vh;
+  border-bottom: 1px solid #ffffff;
 }
 .app___2khK2 .countries_container___2aB6Z .country_container___1QA7i.county_container_unactive___zgLJv {
+  opacity: 0.2;
+}
+.app___2khK2 .countries_container___2aB6Z .country_container___1QA7i.county_container_unactive___zgLJv .month_value___3IKOm:hover .tooltiptext___1KQDN {
+  display: none;
+  visibility: hidden;
+}
+.app___2khK2 .countries_container___2aB6Z .country_container___1QA7i.country_container_expanded___12XHu {
+  height: 100vh;
+}
+.app___2khK2 .countries_container___2aB6Z .country_container___1QA7i.country_container_collapsed___4nbVW {
   height: 0;
 }
 .app___2khK2 .countries_container___2aB6Z .country_container___1QA7i .country_name___1ovzB {
@@ -146,12 +154,11 @@ table {
   opacity: 1;
   position: relative;
   width: 8.33333333%;
-  /* Show the tooltip text when you mouse over the tooltip container */
 }
 .app___2khK2 .countries_container___2aB6Z .country_container___1QA7i .month_value___3IKOm .tooltiptext___1KQDN {
   background-color: #333;
   border-radius: 3px;
-  bottom: 125%;
+  bottom: 200%;
   color: #fff;
   font-size: 12px;
   line-height: 14px;
