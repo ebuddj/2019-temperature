@@ -4,11 +4,25 @@ import style from './../styles/styles.less';
 // https://alligator.io/react/axios-react/
 import axios from 'axios';
 
+const year_start = 1901,
+      year_end = 2016,
+      scale_max = 2,
+      scale_min = -2,
+      interval_timeout = 200,
+      month_names = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+let interval;
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      active_country_id:null,
+      active_country_name:'ALL',
+      active_country_temp:0,
+      controls_text:'Pause',
+      current_year_average_temp:null,
+      interval_play:false,
+      year:year_start
     }
   }
   componentDidMount() {
@@ -20,7 +34,6 @@ class App extends Component {
         data:response.data
       }), self.showData);
     });
-    
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
 
@@ -29,23 +42,106 @@ class App extends Component {
 
   }
   showData() {
+    this.toggleInterval(year_start);
+  }
+  toggleInterval(year) {
     let self = this;
-    const start_year = 1901;
-    const end_year = 2016;
-    let year = start_year;
-    let interval = setInterval(() => {
-      if (year > end_year) {
-        clearInterval(interval);
-        year = start_year;
-      }
-      else {
-        self.setState((state, props) => ({
-          current_data:this.state.data[year],
-          year:year
-        }));
-      }
-      year++;
-    }, 200);
+    if (this.state.interval === true) {
+      clearInterval(interval);
+      self.setState((state, props) => ({
+        controls_text:'Play',
+        interval:false,
+      }));
+    }
+    else {
+      interval = setInterval(() => {
+        if (year > year_end) {
+          clearInterval(interval);
+          year = year_end;
+          self.setState((state, props) => ({
+            controls_text:'Play',
+            interval:false,
+          }));
+        }
+        else {
+          self.setState((state, props) => ({
+            controls_text:'Pause',
+            current_data:self.state.data[year],
+            interval:true,
+            year:year
+          }), self.getCurrentYearAverageTemp);
+        }
+        year++;
+      }, interval_timeout);
+    }
+  }
+  value2color(value, min, max) {
+    if (value > max) {
+      value = max;
+    }
+    else if (value < min) {
+      value = min;
+    }
+    value = -value;
+    let base = (max - min);
+    if (base == 0) {
+      value = 100;
+    }
+    else {
+      value = (value - min) / base * 100; 
+    }
+    let r = 0, b = 0, g = 25;
+    if (value < 50) {
+      r = 255; b = Math.round(5.1 * value);
+    }
+    else {
+      r = Math.round(510 - 5.1 * value); b = 255;
+    }
+    var h = r * 0x10000 + g * 0x100 + b * 0x1;
+    return '#' + ('000000' + h.toString(16)).slice(-6);
+  }
+  getCurrentYearAverageTemp() {
+    let temperature;
+    if (this.state.active_country_id !== null) {
+      temperature = this.state.current_data.filter(obj => {
+        return obj.country === this.state.active_country_name;
+      });
+      temperature = temperature[0].data.reduce((total, current) => total + current.value, 0) / temperature[0].data.length;
+      this.setState((state, props) => ({
+        active_country_temp:temperature,
+        current_year_average_temp:null
+      }));
+    }
+    else {
+      temperature = this.state.current_data.reduce((total, current) => total + (current.data.reduce((country_total, country_current) => country_total + country_current.value, 0)) / current.data.length, 0) / this.state.current_data.length;
+      this.setState((state, props) => ({
+        active_country_temp:temperature,
+        current_year_average_temp:temperature
+      }));
+    }
+  }
+  handleYearChange(event) {
+    clearInterval(interval);
+    let year = event.target.value;
+    this.setState((state, props) => ({
+      current_data:this.state.data[year],
+      year:year
+    }), this.getCurrentYearAverageTemp);
+  }
+  handleCountryClick(data, i) {
+    if (this.state.active_country_id === i) {
+      this.setState((state, props) => ({
+        active_country_id:null,
+        active_country_name:'ALL'
+      }), this.getCurrentYearAverageTemp);
+    }
+    else {
+      this.setState((state, props) => ({
+        active_country_id:i,
+        active_country_name:data.country,
+        active_country_temp:(data.data.reduce((total, current) => total + current.value, 0) / data.data.length)
+      }));
+    }
   }
   // shouldComponentUpdate(nextProps, nextState) {}
   // static getDerivedStateFromProps(props, state) {}
@@ -53,58 +149,70 @@ class App extends Component {
   // static getDerivedStateFromError(error) {}
   // componentDidCatch() {}
   render() {
-    function value2color(value,min,max) {
-      if (value > max) {
-        value = max;
-      }
-      if (value < min) {
-        value = min;
-      }
-      value = -value;
-      let base = (max - min);
-      if (base == 0) {
-        value = 100;
-      }
-      else {
-        value = (value - min) / base * 100; 
-      }
-      let r = 0;
-      let g = 0;
-      let b = 0;
-      if (value < 50) {
-        r = 255;
-        b = Math.round(5.1 * value);
-      }
-      else {
-        b = 255;
-        r = Math.round(510 - 5.10 * value);
-      }
-      var h = r * 0x10000 + g * 0x100 + b * 0x1;
-      return '#' + ('000000' + h.toString(16)).slice(-6);
+    let scales = [], temperature = scale_max;
+    while (temperature > scale_min) {
+      temperature = temperature - 0.02;
+      scales.push(temperature);
     }
     return (
       <div className={style.app}>
-        <h3>{this.state.year}</h3>
-        {
-          this.state.current_data && this.state.current_data.map((data, i) => {
-            return (
-                <div key={i} className={style.country_container}>
+        <div className={style.month_names_container}>
+          {
+            month_names.map((month, i) => {
+              return (
+                <div key={i} className={style.month_name}>{month}</div>
+              );
+            })
+          }
+        </div>
+        <div className={style.countries_container}>
+          {
+            this.state.current_data && this.state.current_data.map((data, i) => {
+              let country_container_class;
+              if (this.state.active_country_id === i) {
+                country_container_class = style.county_container_active + ' ' + style.country_container;
+              }
+              else if (this.state.active_country_id !== null) {
+                country_container_class = style.county_container_unactive + ' ' + style.country_container;
+              }
+              else {
+                country_container_class = style.country_container;
+              }
+              return (
+                <div key={i} className={country_container_class} onClick={() => this.handleCountryClick(data, i)}>
                   <div className={style.country_name}>{data.country}</div>
                   {
                     data.data.map((month_data, i) => {
+                      let title_first_line = this.state.year + ' ' + month_data.month;
+                      let title_second_line = data.country + ' ' + (month_data.value > 0 ? '+' : '') + month_data.value.toFixed(1) + '°C';
                       return (
-                        <div 
-                          key={i} 
-                          style={{backgroundColor:value2color(month_data.value,-2,2)}}
-                          className={style.month_value} 
-                          title={month_data.value}></div>
+                        <div key={i} className={style.month_value} style={{backgroundColor:this.value2color(month_data.value, scale_min, scale_max)}}>
+                          <span className={style.tooltiptext}>{title_first_line}<br />{title_second_line}</span>
+                        </div>
                       );
                     })
                   }
                 </div>
-            );
-          })
-        }
+              );
+            })
+          }
+        </div>
+        <div className={style.meta_container}>
+          <div className={style.active_country_container}>
+            <span className={style.active_country_name}>{this.state.active_country_name}</span>
+            <span className={style.active_country_temp}>{this.state.active_country_temp !== 0 && (this.state.active_country_temp > 0 ? '+' : '') + this.state.active_country_temp.toFixed(1) + '°C'}</span>
+          </div>
+          <div className={style.year_container}>{this.state.year}</div>
+          <input type="range" min={year_start} value={this.state.year} max={year_end} onChange={(event) => this.handleYearChange(event)}/>
+          <div className={style.controls_container} onClick={() => this.toggleInterval(this.state.year)}>{this.state.controls_text}</div>
+        </div>
+        <div className={style.scales_container}>
+          {
+            scales.map((scale, i) => {
+              return ((this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.02)) ? <div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><span className={style.scale_text}>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed(1)}°C</span></div> : <div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max)}}></div>)
+            })
+          }
+        </div>
       </div>
     );
   }
