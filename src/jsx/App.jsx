@@ -45,7 +45,7 @@ class App extends Component {
     this.getCurrentYearAverageTemp();
     setTimeout(() => {
       this.toggleInterval(year_start);
-    }, 1000);
+    }, 2000);
   }
   toggleInterval(year) {
     if (parseInt(year) === year_end) {
