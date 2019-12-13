@@ -167,7 +167,7 @@ class App extends Component {
     });
     if (temperature.length === 1) {
       this.setState((state, props) => ({
-        active_country_id:1,
+        active_country_id:true,
         active_country_name:country,
         active_country_temp:temperature[0].data.reduce((total, current) => total + current.value, 0) / temperature[0].data.length,
         expand:true
@@ -242,7 +242,7 @@ class App extends Component {
         </div>
         <div className={style.meta_container}>
           <div className={style.search_container}>
-            <input list="countries" type="text" placeholder="Search country…" onChange={(event) => this.handleSearchChange(event)} />
+            <input list="countries" type="text" placeholder="Search country…" value={(this.state.active_country_id !== null) ? this.state.active_country_name : ''} onChange={(event) => this.handleSearchChange(event)} />
             <datalist id="countries">
               {
                 this.state.countries && this.state.countries.map((country, i) => {
