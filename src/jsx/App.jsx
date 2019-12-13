@@ -82,12 +82,14 @@ class App extends Component {
     }
   }
   value2color(value, min, max) {
+    // Reduce the number of colors.
     if (value > max) {
       value = max;
     }
     else if (value < min) {
       value = min;
     }
+    value = Math.ceil(value / 0.25) * 0.25;
     value = -value;
     let base = (max - min);
     if (base == 0) {
@@ -96,7 +98,7 @@ class App extends Component {
     else {
       value = (value - min) / base * 100; 
     }
-    let r = 0, b = 0, g = 25;
+    let r = 0, b = 0, g = 0;
     if (value < 50) {
       r = 255; b = Math.round(5.1 * value);
     }
