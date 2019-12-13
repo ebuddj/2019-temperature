@@ -150,7 +150,8 @@ class App extends Component {
         this.setState((state, props) => ({
           active_country_id:null,
           active_country_name:'ALL',
-          expand:false
+          expand:false,
+          search_text:''
         }), this.getCurrentYearAverageTemp);
       }
       else {
