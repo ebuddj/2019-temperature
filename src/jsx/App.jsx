@@ -23,6 +23,7 @@ class App extends Component {
       current_year_average_temp:null,
       expand:false,
       interval_play:false,
+      search_text:'',
       year:year_start
     }
   }
@@ -82,14 +83,14 @@ class App extends Component {
     }
   }
   value2color(value, min, max) {
-    // Reduce the number of colors.
     if (value > max) {
       value = max;
     }
     else if (value < min) {
       value = min;
     }
-    value = Math.ceil(value / 0.25) * 0.25;
+    // Reduce the number of colors.
+    // value = Math.ceil(value / 0.25) * 0.25;
     value = -value;
     let base = (max - min);
     if (base == 0) {
@@ -167,9 +168,12 @@ class App extends Component {
     let temperature = this.state.current_data.filter(obj => {
       return obj.country === country;
     });
+    this.setState((state, props) => ({
+      search_text:country
+    }));
     if (temperature.length === 1) {
       this.setState((state, props) => ({
-        active_country_id:true,
+        active_country_id:this.state.countries.findIndex((el) => el === country),
         active_country_name:country,
         active_country_temp:temperature[0].data.reduce((total, current) => total + current.value, 0) / temperature[0].data.length,
         expand:true
@@ -244,7 +248,7 @@ class App extends Component {
         </div>
         <div className={style.meta_container}>
           <div className={style.search_container}>
-            <input list="countries" type="text" placeholder="Search country…" value={(this.state.active_country_id !== null) ? this.state.active_country_name : ''} onChange={(event) => this.handleSearchChange(event)} />
+            <input list="countries" type="text" placeholder="Search country…" value={(this.state.search_text !== 'ALL') ? this.state.search_text : ''} onChange={(event) => this.handleSearchChange(event)} />
             <datalist id="countries">
               {
                 this.state.countries && this.state.countries.map((country, i) => {
