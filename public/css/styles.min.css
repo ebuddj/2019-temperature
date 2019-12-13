@@ -199,6 +199,26 @@ table {
   text-shadow: 2px 2px 10px #666;
   z-index: 1;
 }
+.app___2khK2 .meta_container___3p0xG .search_container___1aaEn {
+  margin-bottom: 5px;
+  width: 170px;
+}
+.app___2khK2 .meta_container___3p0xG .search_container___1aaEn input {
+  background-color: #ccc;
+  border: 0px solid #333;
+  box-sizing: border-box;
+  font-family: Source Code Pro;
+  outline: none;
+  padding: 5px 7px;
+  pointer-events: auto;
+  width: 100%;
+}
+.app___2khK2 .meta_container___3p0xG .search_container___1aaEn input:focus {
+  background-color: #fff;
+}
+.app___2khK2 .meta_container___3p0xG .active_country_container___2bomm {
+  vertical-align: middle;
+}
 .app___2khK2 .meta_container___3p0xG .active_country_container___2bomm .active_country_name___1Phws {
   font-size: 32px;
 }
@@ -207,16 +227,23 @@ table {
 }
 .app___2khK2 .meta_container___3p0xG .active_country_container___2bomm .active_country_temp___34xgG {
   font-size: 26px;
+  line-height: 30px;
+  vertical-align: top;
 }
 .app___2khK2 .meta_container___3p0xG .year_container___2v5FN {
-  letter-spacing: 0.18em;
   font-size: 60px;
+  letter-spacing: 0.18em;
+  line-height: 55px;
 }
-.app___2khK2 .meta_container___3p0xG input {
-  cursor: pointer;
-  display: block;
-  pointer-events: auto;
+.app___2khK2 .meta_container___3p0xG .range_container___RQeFs {
   width: 170px;
+}
+.app___2khK2 .meta_container___3p0xG .range_container___RQeFs input {
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+  pointer-events: auto;
+  width: 100%;
 }
 .app___2khK2 .meta_container___3p0xG .controls_container___20Jjq {
   cursor: pointer;
@@ -265,7 +292,9 @@ table {
   width: 100%;
 }
 .app___2khK2 .scales_container___1pYId .scale_container___3Z0k5 .scale_text___3RxI7 {
+  line-height: 24px;
   position: relative;
-  top: -15px;
+  top: -22px;
+  display: block;
 }
 
