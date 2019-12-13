@@ -27,13 +27,12 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    let self = this;
-    axios.get('./data/data.json', {
-    })
-    .then(function (response) {
-      self.setState((state, props) => ({
+    axios.get('./data/data.json')
+    .then((response) => {
+      this.setState((state, props) => ({
+        current_data:response.data[year_start],
         data:response.data
-      }), self.showData);
+      }), this.showData);
     });
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -43,16 +42,18 @@ class App extends Component {
 
   }
   showData() {
-    this.toggleInterval(year_start);
+    this.getCurrentYearAverageTemp();
+    setTimeout(() => {
+      this.toggleInterval(year_start);
+    }, 1000);
   }
   toggleInterval(year) {
     if (parseInt(year) === year_end) {
       year = year_start
     }
-    let self = this;
     if (this.state.interval === true) {
       clearInterval(interval);
-      self.setState((state, props) => ({
+      this.setState((state, props) => ({
         controls_text:'Play',
         interval:false,
       }));
@@ -62,18 +63,18 @@ class App extends Component {
         if (year > year_end) {
           clearInterval(interval);
           year = year_end;
-          self.setState((state, props) => ({
+          this.setState((state, props) => ({
             controls_text:'Play',
             interval:false
           }));
         }
         else {
-          self.setState((state, props) => ({
+          this.setState((state, props) => ({
             controls_text:'Pause',
-            current_data:self.state.data[year],
+            current_data:this.state.data[year],
             interval:true,
             year:year
-          }), self.getCurrentYearAverageTemp);
+          }), this.getCurrentYearAverageTemp);
         }
         year++;
       }, interval_timeout);
