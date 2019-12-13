@@ -19,7 +19,7 @@ class App extends Component {
       active_country_id:null,
       active_country_name:'ALL',
       active_country_temp:null,
-      controls_text:'Pause',
+      controls_text:'Play',
       current_year_average_temp:null,
       expand:false,
       interval_play:false,
@@ -30,6 +30,7 @@ class App extends Component {
     axios.get('./data/data.json')
     .then((response) => {
       this.setState((state, props) => ({
+        countries:response.data[year_start].map((data, i) => { return data.country}),
         current_data:response.data[year_start],
         data:response.data
       }), this.showData);
@@ -44,7 +45,7 @@ class App extends Component {
   showData() {
     this.getCurrentYearAverageTemp();
     setTimeout(() => {
-      this.toggleInterval(year_start);
+      // this.toggleInterval(year_start);
     }, 2000);
   }
   toggleInterval(year) {
@@ -153,10 +154,24 @@ class App extends Component {
         this.setState((state, props) => ({
           active_country_id:i,
           active_country_name:data.country,
-          active_country_temp:(data.data.reduce((total, current) => total + current.value, 0) / data.data.length),
+          active_country_temp:data.data.reduce((total, current) => total + current.value, 0) / data.data.length,
           expand:false
         }), this.getCurrentYearAverageTemp);
       }
+    }
+  }
+  handleSearchChange(event) {
+    let country = event.target.value;
+    let temperature = this.state.current_data.filter(obj => {
+      return obj.country === country;
+    });
+    if (temperature.length === 1) {
+      this.setState((state, props) => ({
+        active_country_id:1,
+        active_country_name:country,
+        active_country_temp:temperature[0].data.reduce((total, current) => total + current.value, 0) / temperature[0].data.length,
+        expand:true
+      }), this.getCurrentYearAverageTemp);
     }
   }
   // shouldComponentUpdate(nextProps, nextState) {}
@@ -226,18 +241,30 @@ class App extends Component {
           }
         </div>
         <div className={style.meta_container}>
+          <div className={style.search_container}>
+            <input list="countries" type="text" placeholder="Search country…" onChange={(event) => this.handleSearchChange(event)} />
+            <datalist id="countries">
+              {
+                this.state.countries && this.state.countries.map((country, i) => {
+                  return (<option key={i} value={country} />);
+                })
+              }
+            </datalist>
+          </div>
           <div className={style.active_country_container}>
             <span className={style.active_country_name}>{this.state.active_country_name}</span>
             <span className={style.active_country_temp}>{this.state.active_country_temp !== null && (this.state.active_country_temp > 0 ? '+' : '') + this.state.active_country_temp.toFixed(1) + '°C'}</span>
           </div>
           <div className={style.year_container}>{this.state.year}</div>
-          <input type="range" min={year_start} value={this.state.year} max={year_end} onChange={(event) => this.handleYearChange(event)}/>
+          <div className={style.range_container}>
+            <input type="range" min={year_start} value={this.state.year} max={year_end} onChange={(event) => this.handleYearChange(event)} />
+          </div>
           <div className={style.controls_container} onClick={() => this.toggleInterval(this.state.year)}>{this.state.controls_text}</div>
         </div>
         <div className={style.scales_container}>
           {
             scales.map((scale, i) => {
-              return ((this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.05)) ? <div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><span className={style.scale_text}>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed(1)}°C</span></div> : <div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max)}}></div>)
+              return ((this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.05)) ? <div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><span className={style.scale_text}><div>{this.state.year}</div><div>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed(1)}°C</div></span></div> : <div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max)}}></div>)
             })
           }
         </div>
