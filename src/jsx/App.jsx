@@ -4,6 +4,9 @@ import style from './../styles/styles.less';
 // https://alligator.io/react/axios-react/
 import axios from 'axios';
 
+// https://www.npmjs.com/package/react-div-100vh
+import Div100vh from 'react-div-100vh';
+
 const year_start = 1901,
       year_end = 2016,
       scale_max = 2,
@@ -194,98 +197,100 @@ class App extends Component {
     }
     return (
       <div className={style.app}>
-        <div className={style.month_names_container}>
-          {
-            month_names.map((month, i) => {
-              return (
-                <div key={i} className={style.month_name}>{month}</div>
-              );
-            })
-          }
-        </div>
-        <div className={style.countries_container}>
-          {
-            this.state.current_data && this.state.current_data.map((data, i) => {
-              let country_container_class;
-              let status = '';
-              if (this.state.expand === true) {
-                if (this.state.active_country_id === i) {
-                  country_container_class = style.country_container_expanded + ' ' + style.country_container;
-                }
-                else {
-                  country_container_class = style.country_container_collapsed + ' ' + style.country_container;
-                }
-              }
-              else {
-                if (this.state.active_country_id === i) {
-                  status = 'clicked';
-                  country_container_class = style.county_container_active + ' ' + style.country_container;
-                }
-                else if (this.state.active_country_id !== null) {
-                  country_container_class = style.county_container_unactive + ' ' + style.country_container;
-                }
-                else {
-                  country_container_class = style.country_container;
-                }
-              }
-              return (
-                <div key={i} className={country_container_class} onClick={() => this.handleCountryClick(data, i, status)}>
-                  <div className={style.country_name}>{data.country}</div>
-                  {
-                    data.data.map((month_data, i) => {
-                      let title_first_line = this.state.year + ' ' + month_data.month;
-                      let title_second_line = data.country + ' ' + (month_data.value > 0 ? '+' : '') + month_data.value.toFixed(1) + '°C';
-                      return (
-                        <div key={i} className={style.month_value} style={{backgroundColor:this.value2color(month_data.value, scale_min, scale_max)}}>
-                          <span className={style.tooltiptext}>{title_first_line}<br />{title_second_line}</span>
-                        </div>
-                      );
-                    })
+        <Div100vh>
+          <div className={style.month_names_container}>
+            {
+              month_names.map((month, i) => {
+                return (
+                  <div key={i} className={style.month_name}>{month}</div>
+                );
+              })
+            }
+          </div>
+          <div className={style.countries_container}>
+            {
+              this.state.current_data && this.state.current_data.map((data, i) => {
+                let country_container_class;
+                let status = '';
+                if (this.state.expand === true) {
+                  if (this.state.active_country_id === i) {
+                    country_container_class = style.country_container_expanded + ' ' + style.country_container;
                   }
-                </div>
-              );
-            })
-          }
-        </div>
-        <div className={style.meta_container}>
-          <div className={style.search_container}>
-            <input list="countries" type="text" placeholder="Search country…" value={(this.state.search_text !== 'ALL') ? this.state.search_text : ''} onChange={(event) => this.handleSearchChange(event)} />
-            <datalist id="countries">
-              {
-                this.state.countries && Object.values(this.state.countries).map((country, i) => {
-                  return (<option key={i} value={country} />);
-                })
-              }
-            </datalist>
+                  else {
+                    country_container_class = style.country_container_collapsed + ' ' + style.country_container;
+                  }
+                }
+                else {
+                  if (this.state.active_country_id === i) {
+                    status = 'clicked';
+                    country_container_class = style.county_container_active + ' ' + style.country_container;
+                  }
+                  else if (this.state.active_country_id !== null) {
+                    country_container_class = style.county_container_unactive + ' ' + style.country_container;
+                  }
+                  else {
+                    country_container_class = style.country_container;
+                  }
+                }
+                return (
+                  <div key={i} className={country_container_class} onClick={() => this.handleCountryClick(data, i, status)}>
+                    <div className={style.country_name}>{data.country}</div>
+                    {
+                      data.data.map((month_data, i) => {
+                        let title_first_line = this.state.year + ' ' + month_data.month;
+                        let title_second_line = data.country + ' ' + (month_data.value > 0 ? '+' : '') + month_data.value.toFixed(1) + '°C';
+                        return (
+                          <div key={i} className={style.month_value} style={{backgroundColor:this.value2color(month_data.value, scale_min, scale_max)}}>
+                            <span className={style.tooltiptext}>{title_first_line}<br />{title_second_line}</span>
+                          </div>
+                        );
+                      })
+                    }
+                  </div>
+                );
+              })
+            }
           </div>
-          <div className={style.active_country_container}>
-            <span className={style.active_country_name}>{this.state.active_country_name}</span>
-            <span className={style.active_country_temp}>{this.state.active_country_temp !== null && (this.state.active_country_temp > 0 ? '+' : '') + this.state.active_country_temp.toFixed(1) + '°C'}</span>
+          <div className={style.meta_container}>
+            <div className={style.search_container}>
+              <input list="countries" type="text" placeholder="Search country" value={(this.state.search_text !== 'ALL') ? this.state.search_text : ''} onChange={(event) => this.handleSearchChange(event)} />
+              <datalist id="countries">
+                {
+                  this.state.countries && Object.values(this.state.countries).map((country, i) => {
+                    return (<option key={i} value={country} />);
+                  })
+                }
+              </datalist>
+            </div>
+            <div className={style.active_country_container}>
+              <span className={style.active_country_name}>{this.state.active_country_name}</span>
+              <span className={style.active_country_temp}>{this.state.active_country_temp !== null && (this.state.active_country_temp > 0 ? '+' : '') + this.state.active_country_temp.toFixed(1) + '°C'}</span>
+            </div>
+            <div className={style.year_container}>{this.state.year}</div>
+            <div className={style.range_container}>
+              <input type="range" min={year_start} value={this.state.year} max={year_end} onChange={(event) => this.handleYearChange(event)} />
+            </div>
+            <div className={style.controls_container} onClick={() => this.toggleInterval(this.state.year)}>{this.state.controls_text}</div>
           </div>
-          <div className={style.year_container}>{this.state.year}</div>
-          <div className={style.range_container}>
-            <input type="range" min={year_start} value={this.state.year} max={year_end} onChange={(event) => this.handleYearChange(event)} />
+          <div className={style.scales_container}>
+            {
+              scales.map((scale, i) => {
+                if (this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.05)) {
+                  return (<div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><div className={style.scale_text}><div>{this.state.year}</div><div>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed()}°C</div></div></div>);
+                }
+                else if (scale > -0.025 && scale < 0.025) {
+                  return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_zero}><div>0°C</div></div></div>);
+                }
+                else if (scale < -0.625 && scale > -0.675) {
+                  return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_1901}><div>-0.6°C</div></div></div>);
+                }
+                else {
+                  return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max)}}></div>);
+                }
+              })
+            }
           </div>
-          <div className={style.controls_container} onClick={() => this.toggleInterval(this.state.year)}>{this.state.controls_text}</div>
-        </div>
-        <div className={style.scales_container}>
-          {
-            scales.map((scale, i) => {
-              if (this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.05)) {
-                return (<div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><div className={style.scale_text}><div>{this.state.year}</div><div>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed()}°C</div></div></div>);
-              }
-              else if (scale > -0.025 && scale < 0.025) {
-                return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_zero}><div>0°C</div></div></div>);
-              }
-              else if (scale < -0.625 && scale > -0.675) {
-                return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_1901}><div>-0.6°C</div></div></div>);
-              }
-              else {
-                return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max)}}></div>);
-              }
-            })
-          }
-        </div>
+        </Div100vh>
       </div>
     );
   }
