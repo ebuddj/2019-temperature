@@ -271,7 +271,18 @@ class App extends Component {
         <div className={style.scales_container}>
           {
             scales.map((scale, i) => {
-              return ((this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.05)) ? <div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><span className={style.scale_text}><div>{this.state.year}</div><div>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed(1)}°C</div></span></div> : <div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max)}}></div>)
+              if (this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.05)) {
+                return (<div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><div className={style.scale_text}><div>{this.state.year}</div><div>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed()}°C</div></div></div>);
+              }
+              else if (scale > -0.025 && scale < 0.025) {
+                return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_zero}><div>0°C</div></div></div>);
+              }
+              else if (scale < -0.625 && scale > -0.675) {
+                return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_1901}><div>-0.6°C</div></div></div>);
+              }
+              else {
+                return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max)}}></div>);
+              }
             })
           }
         </div>
