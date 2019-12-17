@@ -80,6 +80,8 @@ table {
 .app___2khK2 {
   background-color: #fff;
   overflow: hidden;
+  margin: auto auto;
+  position: relative;
 }
 .app___2khK2 .month_names_container___PcrNH {
   pointer-events: none;
@@ -199,6 +201,7 @@ table {
   z-index: 1;
 }
 .app___2khK2 .meta_container___3p0xG .search_container___1aaEn {
+  display: none;
   margin-bottom: 5px;
   width: 200px;
 }
@@ -234,12 +237,13 @@ table {
 .app___2khK2 .meta_container___3p0xG .year_container___2v5FN {
   font-size: 70px;
   letter-spacing: 0.18em;
+  -webkit-appearance: none;
   line-height: 65px;
 }
 .app___2khK2 .meta_container___3p0xG .range_container___RQeFs {
   width: 200px;
 }
-.app___2khK2 .meta_container___3p0xG .range_container___RQeFs input {
+.app___2khK2 .meta_container___3p0xG .range_container___RQeFs input[type=range] {
   box-sizing: border-box;
   cursor: pointer;
   font-size: 16px;
@@ -250,9 +254,10 @@ table {
 .app___2khK2 .meta_container___3p0xG .controls_container___20Jjq {
   cursor: pointer;
   display: inline-block;
-  margin-top: 5px;
-  font-weight: 600;
+  display: none;
   font-size: 32px;
+  font-weight: 600;
+  margin-top: 5px;
   pointer-events: auto;
 }
 .app___2khK2 .meta_container___3p0xG .controls_container___20Jjq:hover {
@@ -287,23 +292,26 @@ table {
   margin-bottom: 5px;
 }
 .app___2khK2 .scales_container___1pYId .scale_container___3Z0k5 {
+  color: #000;
   font-size: 14px;
   font-weight: 600;
   height: 4px;
   text-align: center;
   width: 100%;
-  color: #000;
 }
 .app___2khK2 .scales_container___1pYId .scale_container___3Z0k5 .scale_text___3RxI7 {
+  display: block;
   line-height: 24px;
   position: relative;
   top: -22px;
-  display: block;
+}
+.app___2khK2 .scales_container___1pYId .scale_container___3Z0k5 .scale_text___3RxI7 .year_text___3ryI5 {
+  font-size: 18px;
 }
 .app___2khK2 .scales_container___1pYId .scale_container___3Z0k5 .scale_text_zero___20zq_,
 .app___2khK2 .scales_container___1pYId .scale_container___3Z0k5 .scale_text_1901___1gfLu {
-  font-size: 12px;
   color: #000;
+  font-size: 12px;
   opacity: 0.5;
   position: relative;
   top: -2px;
