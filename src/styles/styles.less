@@ -6,6 +6,8 @@
   @textShadow: 1px 1px 1px #fff;
   background-color: #fff;
   overflow: hidden;
+  margin: auto auto;
+  position: relative;
   .month_names_container {
     pointer-events: none;
     position: relative;
@@ -121,6 +123,7 @@
     text-shadow: @textShadow;
     z-index: 1;
     .search_container {
+      display: none;
       margin-bottom: 5px;
       width: 200px;
       input {
@@ -156,11 +159,12 @@
     .year_container {
       font-size: 70px;
       letter-spacing: 0.18em;
+      -webkit-appearance: none;
       line-height: 65px;
     }
     .range_container {
       width: 200px;
-      input {
+      input[type=range] {
         box-sizing: border-box;
         cursor: pointer;
         font-size: 16px;
@@ -172,9 +176,10 @@
     .controls_container {
       cursor: pointer;
       display: inline-block;
-      margin-top: 5px;
-      font-weight: 600;
+      display: none;
       font-size: 32px;
+      font-weight: 600;
+      margin-top: 5px;
       pointer-events: auto;
       &:hover {
         color: #333;
@@ -209,22 +214,25 @@
       margin-bottom: 5px;
     }
     .scale_container {
+      color: #000;
       font-size: 14px;
       font-weight: 600;
       height: 4px;
       text-align: center;
       width: 100%;
-      color: #000;
       .scale_text {
+        display: block;
         line-height: 24px;
         position: relative;
         top: -22px;
-        display: block;
+        .year_text {
+          font-size: 18px;
+        }
       }
       .scale_text_zero,
       .scale_text_1901 {
-        font-size: 12px;
         color: #000;
+        font-size: 12px;
         opacity: 0.5;
         position: relative;
         top: -2px;

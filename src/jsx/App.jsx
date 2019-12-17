@@ -22,7 +22,7 @@ let interval;
 class App extends Component {
   constructor(props) {
     super(props);
-
+    this.containerRef = React.createRef();
     this.state = {
       active_country_id:null,
       active_country_name:'ALL',
@@ -54,7 +54,7 @@ class App extends Component {
   showData() {
     this.getCurrentYearAverageTemp();
     setTimeout(() => {
-      // this.toggleInterval(year_start);
+      this.toggleInterval(year_start);
     }, 2000);
   }
   toggleInterval(year) {
@@ -77,6 +77,18 @@ class App extends Component {
             controls_text:'Play',
             interval:false
           }));
+          if (this.containerRef.current.style.width !== '100vh') {
+            setTimeout(() => {
+              this.setState((state, props) => ({
+                current_data:state.data[year_start],
+                year:year_start
+              }), this.getCurrentYearAverageTemp);
+              this.containerRef.current.style.width = '100vh';
+              setTimeout(() => {
+                this.toggleInterval(year_start);
+              }, 2000);
+            }, 2000);
+          }
         }
         else {
           this.setState((state, props) => ({
@@ -177,7 +189,7 @@ class App extends Component {
       scales.push(temperature);
     }
     return (
-      <div className={style.app}>
+      <div className={style.app} ref={this.containerRef}>
         <Div100vh>
           <div className={style.month_names_container}>
             {
@@ -257,7 +269,7 @@ class App extends Component {
             {
               scales.map((scale, i) => {
                 if (this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.05)) {
-                  return (<div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><div className={style.scale_text}><div>{this.state.year}</div><div>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed(1)}°C</div></div></div>);
+                  return (<div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><div className={style.scale_text}><div className={style.year_text}>{this.state.year}</div><div>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed(1)}°C</div></div></div>);
                 }
                 else if (scale > -0.025 && scale < 0.025) {
                   return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_zero}><div>0°C</div></div></div>);
