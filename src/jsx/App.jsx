@@ -10,10 +10,12 @@ import Div100vh from 'react-div-100vh';
 // https://vis4.net/chromajs/
 import chroma from 'chroma-js';
 
+// Use chroma to make the color scale.
 const f = chroma.scale('RdYlBu').padding([-0.35,-0.35]).domain([2,0,-2]);
 
 let interval;
 
+// Define constants.
 const yearStart = 1901,
       yearEnd = 2016,
       scaleMax = 2,
@@ -22,16 +24,21 @@ const yearStart = 1901,
       monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
       countries = {'AFG':'Afghanistan','ALB':'Albania','DZA':'Algeria','AND':'Andorra','AGO':'Angola','ATG':'Antigua and Barbuda','ARG':'Argentina','ARM':'Armenia','AUS':'Australia','AUT':'Austria','AZE':'Azerbaijan','BHS':'Bahamas','BHR':'Bahrain','BGD':'Bangladesh','BRB':'Barbados','BLR':'Belarus','BEL':'Belgium','BLZ':'Belize','BEN':'Benin','BTN':'Bhutan','BOL':'Bolivia','BIH':'Bosnia and Herzegovina','BWA':'Botswana','BRA':'Brazil','BRN':'Brunei Darussalam','BGR':'Bulgaria','BFA':'Burkina Faso','BDI':'Burundi','KHM':'Cambodia','CMR':'Cameroon','CAN':'Canada','CPV':'Cabo Verde','CAF':'Central African Republic','TCD':'Chad','CHL':'Chile','CHN':'China','COL':'Colombia','COM':'Comoros','COD':'Congo-Kinshasa','COG':'Congo-Brazzaville','CRI':'Costa Rica','CIV':'Côte d\'Ivoire','HRV':'Croatia','CUB':'Cuba','CYP':'Cyprus','CZE':'Czechia','DNK':'Denmark','DJI':'Djibouti','DMA':'Dominica','DOM':'Dominican Republic','ECU':'Ecuador','EGY':'Egypt','SLV':'El Salvador','GNQ':'Equatorial Guinea','ERI':'Eritrea','EST':'Estonia','ETH':'Ethiopia','FRO':'Faroe Islands','FSM':'Micronesia','FJI':'Fiji','FIN':'Finland','FRA':'France','GAB':'Gabon','GMB':'Gambia','GEO':'Georgia','DEU':'Germany','GHA':'Ghana','GRC':'Greece','GRL':'Greenland','GRD':'Grenada','GTM':'Guatemala','GIN':'Guinea','GNB':'Guinea-Bissau','GUY':'Guyana','HTI':'Haiti','HND':'Honduras','HUN':'Hungary','ISL':'Iceland','IND':'India','IDN':'Indonesia','IRN':'Iran','IRQ':'Iraq','IRL':'Ireland','ISR':'Israel','ITA':'Italy','JAM':'Jamaica','JPN':'Japan','JOR':'Jordan','KAZ':'Kazakhstan','KEN':'Kenya','KIR':'Kiribati','PRK':'North Korea','KOR':'South Korea','KWT':'Kuwait','KGZ':'Kyrgyzstan','LAO':'Lao','LVA':'Latvia','LBN':'Lebanon','LSO':'Lesotho','LBR':'Liberia','LBY':'Libya','LIE':'Liechtenstein','LTU':'Lithuania','LUX':'Luxembourg','MKD':'Republic of North Macedonia','MDG':'Madagascar','MWI':'Malawi','MYS':'Malaysia','MDV':'Maldives','MLI':'Mali','MLT':'Malta','MHL':'Marshall Islands','MRT':'Mauritania','MUS':'Mauritius','MEX':'Mexico','MDA':'Moldova','MCO':'Monaco','MNG':'Mongolia','MAR':'Morocco','MOZ':'Mozambique','MMR':'Myanmar','NAM':'Namibia','NPL':'Nepal','NLD':'Netherlands','NCL':'New Caledonia','NZL':'New Zealand','NIC':'Nicaragua','NER':'Niger','NGA':'Nigeria','MNP':'Northern Mariana Islands','NOR':'Norway','OMN':'Oman','PAK':'Pakistan','PLW':'Palau','PAN':'Panama','PNG':'Papua New Guinea','PRY':'Paraguay','PER':'Peru','PHL':'Philippines','POL':'Poland','PRT':'Portugal','PRI':'Puerto Rico','QAT':'Qatar','MNE':'Montenegro','SRB':'Serbia','ROU':'Romania','RUS':'Russian Federation','RWA':'Rwanda','WSM':'Samoa','STP':'Sao Tome and Principe','SAU':'Saudi Arabia','SEN':'Senegal','SYC':'Seychelles','SLE':'Sierra Leone','SGP':'Singapore','SVK':'Slovakia','SVN':'Slovenia','SLB':'Solomon Islands','SOM':'Somalia','ZAF':'South Africa','SSD':'South Sudan','ESP':'Spain','LKA':'Sri Lanka','KNA':'Saint Kitts and Nevis','LCA':'Saint Lucia','VCT':'Saint Vincent and the Grenadines','SDN':'Sudan','SUR':'Suriname','SWZ':'Eswatini','SWE':'Sweden','CHE':'Switzerland','SYR':'Syrian Arab Republic','TJK':'Tajikistan','TZA':'Tanzania','THA':'Thailand','TLS':'Timor-Leste','TGO':'Togo','TON':'Tonga','TTO':'Trinidad and Tobago','TUN':'Tunisia','TUR':'Turkey','TKM':'Turkmenistan','TUV':'Tuvalu','UGA':'Uganda','UKR':'Ukraine','ARE':'United Arab Emirates','GBR':'United Kingdom','USA':'United States of America','URY':'Uruguay','UZB':'Uzbekistan','VUT':'Vanuatu','VEN':'Venezuela','VNM':'Viet Nam','YEM':'Yemen','ZMB':'Zambia','ZWE':'Zimbabwe'};
 
+// Use this to run three different versions (fullscreen, square and portrait)
 const videoMode = false;
 
 class App extends Component {
   constructor(props) {
     super(props);
+
+    // Define refs.
     this.containerRef = React.createRef();
     this.monthNamesContainerRef = React.createRef();
     this.searchContainerRef = React.createRef();
     this.controlsContainerRef = React.createRef();
     this.rangeContainerRef = React.createRef();
+
+    // Define initial state.
     this.state = {
       active_country_id:null,
       active_country_name:'ALL',
@@ -45,11 +52,13 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    // In video mode we want to remove controls.
     if (videoMode === true) {
       this.searchContainerRef.current.style.display = 'none';
       this.controlsContainerRef.current.style.display = 'none';
       this.rangeContainerRef.current.style.display = 'none';
     }
+    // Get data.
     axios.get('./data/data.json')
     .then((response) => {
       this.setState((state, props) => ({
@@ -66,6 +75,7 @@ class App extends Component {
   }
   showData() {
     this.getCurrentYearAverageTemp();
+    // Wait 2 seconds before starting the interval.
     setTimeout(() => {
       this.toggleInterval(yearStart);
     }, 2000);
@@ -74,6 +84,7 @@ class App extends Component {
     if (parseInt(year) === yearEnd) {
       year = yearStart
     }
+    // If interval is already running, stop it.
     if (this.state.interval === true) {
       clearInterval(interval);
       this.setState((state, props) => ({
@@ -82,7 +93,9 @@ class App extends Component {
       }));
     }
     else {
+      // Start interval to loop through the years.
       interval = setInterval(() => {
+        // If we are in the end.
         if (year > yearEnd) {
           clearInterval(interval);
           year = yearEnd;
@@ -90,7 +103,7 @@ class App extends Component {
             controls_text:'Play',
             interval:false
           }));
-          // Only to create the different video versions.
+          // Only to create the different video versions, ignored otherwise.
           if (videoMode === true) {
             if (this.containerRef.current.style.width !== '100vh' && this.containerRef.current.style.width !== ((9 / 16 * 100) + 'vh')) {
               setTimeout(() => {
@@ -120,6 +133,7 @@ class App extends Component {
           }
         }
         else {
+          // Set data for the next year.
           this.setState((state, props) => ({
             controls_text:'Pause',
             current_data:this.state.data[year],
@@ -131,11 +145,13 @@ class App extends Component {
       }, intervalTimeout);
     }
   }
-  value2color(value, min, max) {
+  value2color(value) {
+    // Return color from chroma based on value.
     return f(value);
   }
   getCurrentYearAverageTemp() {
     let temperature;
+    // If current country is empty.
     if (this.state.active_country_id !== null) {
       temperature = this.state.current_data.filter(obj => {
         return obj.country === this.state.active_country_name;
@@ -146,6 +162,7 @@ class App extends Component {
         current_year_average_temp:null
       }));
     }
+    // If current country is selected.
     else {
       temperature = this.state.current_data.reduce((total, current) => total + (current.data.reduce((country_total, country_current) => country_total + country_current.value, 0)) / current.data.length, 0) / this.state.current_data.length;
       this.setState((state, props) => ({
@@ -155,7 +172,8 @@ class App extends Component {
     }
   }
   handleYearChange(event) {
-    // clearInterval(interval);
+    // If year is changed manually we stop the interval.
+    clearInterval(interval);
     let year = event.target.value;
     this.setState((state, props) => ({
       controls_text:'Play',
@@ -165,6 +183,7 @@ class App extends Component {
     }), this.getCurrentYearAverageTemp);
   }
   handleCountryClick(data, i, status) {
+    // If already clicked we want to expand.
     if (status === 'clicked') {
       this.setState((state, props) => ({
         expand:true
@@ -222,6 +241,7 @@ class App extends Component {
         <Div100vh>
           <div className={style.month_names_container} ref={this.monthNamesContainerRef}>
             {
+              // Months at the top.
               monthNames.map((month, i) => {
                 return (
                   <div key={i} className={style.month_name}>{month}</div>
@@ -231,6 +251,7 @@ class App extends Component {
           </div>
           <div className={style.countries_container}>
             {
+              // Print temperatues.
               this.state.current_data && this.state.current_data.map((data, i) => {
                 let country_container_class;
                 let status = '';
@@ -262,7 +283,7 @@ class App extends Component {
                         let title_first_line = this.state.year + ' ' + month_data.month;
                         let title_second_line = data.country + ' ' + (month_data.value > 0 ? '+' : '') + month_data.value.toFixed(1) + '°C';
                         return (
-                          <div key={i} className={style.month_value} style={{backgroundColor:this.value2color(month_data.value, scaleMin, scaleMax)}}>
+                          <div key={i} className={style.month_value} style={{backgroundColor:this.value2color(month_data.value)}}>
                             <span className={style.tooltiptext}>{title_first_line}<br />{title_second_line}</span>
                           </div>
                         );
@@ -278,6 +299,7 @@ class App extends Component {
               <input list="countries" type="text" placeholder="Search country…" value={(this.state.search_text !== 'ALL') ? this.state.search_text : ''} onChange={(event) => this.handleSearchChange(event)} />
               <datalist id="countries">
                 {
+                  // Autocomplete data.
                   countries && Object.values(countries).map((country, i) => {
                     return (<option key={i} value={country} />);
                   })
@@ -296,18 +318,22 @@ class App extends Component {
           </div>
           <div className={style.scales_container}>
             {
+              // The scale on the right.
               scales.map((scale, i) => {
+                // Place the yearly marker.
                 if (this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.05)) {
                   return (<div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><div className={style.scale_text}><div className={style.year_text}>{this.state.year}</div><div>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed(1)}°C</div></div></div>);
                 }
+                // Place the zero point (disabled by css on default).
                 else if (scale > -0.025 && scale < 0.025) {
-                  return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scaleMin, scaleMax), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_zero}><div>0°C</div></div></div>);
+                  return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_zero}><div>0°C</div></div></div>);
                 }
+                // Place the initial value.
                 else if (scale < -0.625 && scale > -0.675) {
-                  return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scaleMin, scaleMax), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_1901}><div>-0.6°C</div></div></div>);
+                  return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_1901}><div>-0.6°C</div></div></div>);
                 }
                 else {
-                  return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scaleMin, scaleMax)}}></div>);
+                  return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale)}}></div>);
                 }
               })
             }
