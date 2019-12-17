@@ -7,6 +7,11 @@ import axios from 'axios';
 // https://www.npmjs.com/package/react-div-100vh
 import Div100vh from 'react-div-100vh';
 
+// https://vis4.net/chromajs/
+import chroma from 'chroma-js';
+
+const f = chroma.scale('RdYlBu').padding([-0.35,-0.35]).domain([2,0,-2]);
+
 const year_start = 1901,
       year_end = 2016,
       scale_max = 2,
@@ -86,31 +91,7 @@ class App extends Component {
     }
   }
   value2color(value, min, max) {
-    if (value > max) {
-      value = max;
-    }
-    else if (value < min) {
-      value = min;
-    }
-    // Reduce the number of colors.
-    // value = Math.ceil(value / 0.25) * 0.25;
-    value = -value;
-    let base = (max - min);
-    if (base == 0) {
-      value = 100;
-    }
-    else {
-      value = (value - min) / base * 100; 
-    }
-    let r = 0, b = 0, g = 0;
-    if (value < 50) {
-      r = 255; b = Math.round(5.1 * value);
-    }
-    else {
-      r = Math.round(510 - 5.1 * value); b = 255;
-    }
-    var h = r * 0x10000 + g * 0x100 + b * 0x1;
-    return '#' + ('000000' + h.toString(16)).slice(-6);
+    return f(value);
   }
   getCurrentYearAverageTemp() {
     let temperature;
@@ -253,7 +234,7 @@ class App extends Component {
           </div>
           <div className={style.meta_container}>
             <div className={style.search_container}>
-              <input list="countries" type="text" placeholder="Search country" value={(this.state.search_text !== 'ALL') ? this.state.search_text : ''} onChange={(event) => this.handleSearchChange(event)} />
+              <input list="countries" type="text" placeholder="Search country…" value={(this.state.search_text !== 'ALL') ? this.state.search_text : ''} onChange={(event) => this.handleSearchChange(event)} />
               <datalist id="countries">
                 {
                   this.state.countries && Object.values(this.state.countries).map((country, i) => {
@@ -276,7 +257,7 @@ class App extends Component {
             {
               scales.map((scale, i) => {
                 if (this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.05)) {
-                  return (<div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><div className={style.scale_text}><div>{this.state.year}</div><div>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed()}°C</div></div></div>);
+                  return (<div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><div className={style.scale_text}><div>{this.state.year}</div><div>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed(1)}°C</div></div></div>);
                 }
                 else if (scale > -0.025 && scale < 0.025) {
                   return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale, scale_min, scale_max), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_zero}><div>0°C</div></div></div>);
