@@ -84,6 +84,8 @@ table {
   position: relative;
 }
 .app___2khK2 .month_names_container___PcrNH {
+  font-size: 36px;
+  height: 36px;
   pointer-events: none;
   position: relative;
   z-index: 1;
@@ -92,9 +94,7 @@ table {
   color: #000;
   display: inline-block;
   font-family: Source Code Pro;
-  font-size: 36px;
   font-weight: 600;
-  height: 36px;
   text-align: center;
   text-shadow: 1px 1px 1px #fff;
   width: 8.33333333%;
@@ -201,7 +201,6 @@ table {
   z-index: 1;
 }
 .app___2khK2 .meta_container___3p0xG .search_container___1aaEn {
-  display: none;
   margin-bottom: 5px;
   width: 200px;
 }
@@ -230,7 +229,7 @@ table {
 }
 .app___2khK2 .meta_container___3p0xG .active_country_container___2bomm .active_country_temp___34xgG {
   font-size: 36px;
-  letter-spacing: -0.075em;
+  letter-spacing: -0.08em;
   line-height: 36px;
   vertical-align: top;
 }
