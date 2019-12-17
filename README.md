@@ -4,9 +4,9 @@
 
 Global warming is the long-term rise in the average temperature of the Earth's climate system. While there have been prehistoric periods of global warming, many observed changes since the mid-20th century have been unprecedented over decades to millennia.
 
-This visualisation shows how the temperatures calculated by the CMIP Phase 5 model changes over time. Visualisation starts from year 1901 and ends to year 2016. Each line in the visualisation presents one country and each column presents a month. In the animation you can see the difference to the average temperature on that month in that country. The average is calculated from years 1981–2010. 
+This visualisation shows how the temperatures calculated by the CMIP Phase 5 model changes over time. Visualisation starts from year 1901 and ends to year 2016. Each line in the visualisation presents one country and each column presents a month. In the animation you can see the difference to the average temperature on that month in that country. The average is calculated from years 1981–2010. Data comes from World Bank's Climate Knowledge Portal.
 
-The color scale goes from -2°C to +2°C. Larger anomalities are scales to the nearest maximum or minimum on the scale. This means that if the anomality is -10°C it is visualised as it was -2°C. This is done so that the big local anomalities won't blur the big picture. In the interactive version one can see the exact values.
+The color scale goes from -2°C to +2°C. Larger anomalities are scales to the nearest maximum or minimum on the scale. This means that if the anomality is -10°C it is visualised as it was -2°C. This is done so that the big local anomalities won't blur the big picture. In the interactive version one can see the exact values. The total average seen on the scale and bottom left is the non-weighted avarage from all countries per year.  
 
 In the interactive version you can select your country of preference.
 
