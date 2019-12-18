@@ -12,6 +12,10 @@ The color scale goes from -2°C to +2°C. Larger anomalies are scaled to the nea
 
 In the interactive version you can select your country of preference. Members can make a screen caption video of their own country's data if desired.
 
+**Links**
+* [Social Newswire](https://www.evnsocialnewswire.ch/climate/climate-animation-shows-changes-in-temperature-per-country-from-1901-2016-animation/)
+* [News Exchange](https://news-exchange.ebu.ch/item_detail/1db9a66f91368300da1d67928dfb1ede/2019_21060495)
+
 **Sources**
 * [Worldbank](https://climateknowledgeportal.worldbank.org/download-data)
 * [Coupled Model Intercomparison Project](https://en.wikipedia.org/wiki/Coupled_Model_Intercomparison_Project)
