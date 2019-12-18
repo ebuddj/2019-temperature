@@ -21,6 +21,10 @@ In the interactive version you can select your country of preference. Members ca
 * [Coupled Model Intercomparison Project](https://en.wikipedia.org/wiki/Coupled_Model_Intercomparison_Project)
 * [Global warming](https://en.wikipedia.org/wiki/Global_warming)
 
+**Used by**
+* [DW/Germany](https://twitter.com/dwnews/status/1207232031492640769)
+* [RTE/Ireland](https://www.instagram.com/p/B6NcV-wl3qq/)
+
 ## How to use
 
 If you are interested in using the interactive version please contact Teemo Tebest, tebest@ebu.ch
