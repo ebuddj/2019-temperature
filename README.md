@@ -24,6 +24,8 @@ In the interactive version you can select your country of preference. Members ca
 **Used by**
 * [DW/Germany](https://twitter.com/dwnews/status/1207232031492640769)
 * [RTE/Ireland](https://www.instagram.com/p/B6NcV-wl3qq/)
+* [Euronews/Italy](https://www.instagram.com/p/B6OEoStjZ5P/)
+* [Euronews/Italy](https://it.euronews.com/2019/12/19/capire-il-riscaldamento-globale-a-colpo-d-occhio)
 
 ## How to use
 
