@@ -151,7 +151,7 @@ class App extends Component {
   }
   getCurrentYearAverageTemp() {
     let temperature;
-    // If current country is empty.
+    // If current country is selected.
     if (this.state.active_country_id !== null) {
       temperature = this.state.current_data.filter(obj => {
         return obj.country === this.state.active_country_name;
@@ -162,7 +162,7 @@ class App extends Component {
         current_year_average_temp:null
       }));
     }
-    // If current country is selected.
+    // If current country is empty.
     else {
       temperature = this.state.current_data.reduce((total, current) => total + (current.data.reduce((country_total, country_current) => country_total + country_current.value, 0)) / current.data.length, 0) / this.state.current_data.length;
       this.setState((state, props) => ({
