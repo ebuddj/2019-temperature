@@ -26,6 +26,7 @@ In the interactive version you can select your country of preference. Members ca
 * [RTÉ/Ireland](https://www.instagram.com/p/B6NcV-wl3qq/)
 * [Euronews/Italy on Instagram](https://www.instagram.com/p/B6OEoStjZ5P/)
 * [Euronews/Italy on Online](https://it.euronews.com/2019/12/19/capire-il-riscaldamento-globale-a-colpo-d-occhio)
+* [Euronews/France on Online](https://fr.euronews.com/2019/12/20/animation-39-secondes-pour-constater-le-rechauffement-climatique)
 
 ## How to use
 
