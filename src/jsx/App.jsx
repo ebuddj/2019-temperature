@@ -10,9 +10,6 @@ import Div100vh from 'react-div-100vh';
 // https://vis4.net/chromajs/
 import chroma from 'chroma-js';
 
-// Use chroma to make the color scale.
-const f = chroma.scale('RdYlBu').padding([-0.35,-0.35]).domain([2,0,-2]);
-
 let interval;
 
 // Define constants.
