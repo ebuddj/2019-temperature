@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:600.css);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700.css);
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -93,7 +93,7 @@ table {
 .app___2khK2 .month_names_container___PcrNH .month_name___3BLGA {
   color: #000;
   display: inline-block;
-  font-family: Source Code Pro;
+  font-family: Lato;
   font-weight: 600;
   text-align: center;
   text-shadow: 1px 1px 1px #fff;
@@ -162,7 +162,7 @@ table {
   bottom: 200%;
   box-sizing: border-box;
   color: #fff;
-  font-family: Source Code Pro;
+  font-family: Lato;
   font-size: 12px;
   left: 50%;
   line-height: 14px;
@@ -174,7 +174,7 @@ table {
   transition: opacity 0.3s;
   visibility: hidden;
   width: 104px;
-  z-index: 1;
+  z-index: 9999;
 }
 .app___2khK2 .countries_container___2aB6Z .country_container___1QA7i .month_value___3IKOm .tooltiptext___1KQDN:after {
   border-color: #333 transparent transparent transparent;
@@ -193,22 +193,33 @@ table {
 .app___2khK2 .meta_container___3p0xG {
   bottom: 30px;
   color: #000;
-  font-family: Source Code Pro;
+  font-family: Lato;
   left: 30px;
   pointer-events: none;
   position: absolute;
   text-shadow: 1px 1px 1px #fff;
   z-index: 1;
 }
-.app___2khK2 .meta_container___3p0xG .search_container___1aaEn {
+.app___2khK2 .meta_container___3p0xG .info_container___rDdFc {
+  font-size: 9pt;
   margin-bottom: 5px;
+}
+.app___2khK2 .meta_container___3p0xG .info_container___rDdFc a {
+  color: #000;
+  text-decoration: none;
+}
+.app___2khK2 .meta_container___3p0xG .info_container___rDdFc a:hover {
+  text-decoration: underline;
+}
+.app___2khK2 .meta_container___3p0xG .search_container___1aaEn {
+  margin-bottom: 10px;
   width: 200px;
 }
 .app___2khK2 .meta_container___3p0xG .search_container___1aaEn input {
   background-color: #eee;
   border: 1px solid #333;
   box-sizing: border-box;
-  font-family: Source Code Pro;
+  font-family: Lato;
   font-size: 16px;
   outline: none;
   padding: 5px 7px;
@@ -219,25 +230,21 @@ table {
   background-color: #fff;
 }
 .app___2khK2 .meta_container___3p0xG .active_country_container___2bomm {
-  vertical-align: middle;
+  margin-top: 20px;
+  line-height: 30px;
 }
 .app___2khK2 .meta_container___3p0xG .active_country_container___2bomm .active_country_name___1Phws {
-  font-size: 36px;
+  font-size: 30px;
 }
 .app___2khK2 .meta_container___3p0xG .active_country_container___2bomm .active_country_name___1Phws:after {
   content: ' ';
 }
 .app___2khK2 .meta_container___3p0xG .active_country_container___2bomm .active_country_temp___34xgG {
-  font-size: 36px;
-  letter-spacing: -0.08em;
-  line-height: 36px;
-  vertical-align: top;
+  font-size: 30px;
 }
 .app___2khK2 .meta_container___3p0xG .year_container___2v5FN {
-  font-size: 70px;
-  letter-spacing: 0.18em;
+  font-size: 60px;
   -webkit-appearance: none;
-  line-height: 65px;
 }
 .app___2khK2 .meta_container___3p0xG .range_container___RQeFs {
   width: 200px;
@@ -264,7 +271,7 @@ table {
 .app___2khK2 .scales_container___1pYId {
   bottom: 30px;
   color: #fff;
-  font-family: Source Code Pro;
+  font-family: Lato;
   opacity: 1;
   position: absolute;
   right: 30px;
