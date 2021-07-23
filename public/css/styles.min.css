@@ -287,20 +287,20 @@ table {
   width: 60px;
 }
 .app___2khK2 .scales_container___1pYId:before {
-  content: '+2°C';
+  content: '+3°C';
   margin-top: 5px;
   top: 0;
 }
 .app___2khK2 .scales_container___1pYId:after {
   bottom: 0;
-  content: '-2°C';
+  content: '-3°C';
   margin-bottom: 5px;
 }
 .app___2khK2 .scales_container___1pYId .scale_container___3Z0k5 {
   color: #000;
   font-size: 14px;
   font-weight: 600;
-  height: 4px;
+  height: 3px;
   text-align: center;
   width: 100%;
 }
