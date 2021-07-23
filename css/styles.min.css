@@ -315,13 +315,13 @@ table {
   text-shadow: 1px 1px 1px #fff;
 }
 .app___2khK2 .scales_container___1pYId:before {
-  content: '+3 °C';
+  content: '+3°C';
   margin-top: 5px;
   top: -30px;
 }
 .app___2khK2 .scales_container___1pYId:after {
   bottom: -30px;
-  content: '-3 °C';
+  content: '-3°C';
   margin-bottom: 5px;
 }
 .app___2khK2 .scales_container___1pYId .scale_container___3Z0k5 {
