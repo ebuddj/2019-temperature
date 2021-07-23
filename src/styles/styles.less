@@ -1,6 +1,6 @@
 @import 'basics.less';
 @import 'reset.css';
-@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:600.css');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700.css');
 
 .app {
   @color: #000;
@@ -18,7 +18,7 @@
     .month_name {
       color: @color;
       display: inline-block;
-      font-family: Source Code Pro;
+      font-family: Lato;
       font-weight: 600;
       text-align: center;
       text-shadow: @textShadow;
@@ -82,7 +82,7 @@
           bottom: 200%;
           box-sizing: border-box;
           color: #fff;
-          font-family: Source Code Pro;
+          font-family: Lato;
           font-size: 12px;
           left: 50%;
           line-height: 14px;
@@ -94,7 +94,7 @@
           transition: opacity 0.3s;
           visibility: hidden;
           width: 104px;
-          z-index: 1;
+          z-index: 9999;
           &:after {
             border-color: #333 transparent transparent transparent;
             border-style: solid;
@@ -117,20 +117,31 @@
   .meta_container {
     bottom: @position;
     color: @color;
-    font-family: Source Code Pro;
+    font-family: Lato;
     left: @position;
     pointer-events: none;
     position: absolute;
     text-shadow: @textShadow;
     z-index: 1;
-    .search_container {
+    .info_container {
+      font-size: 9pt;
       margin-bottom: 5px;
+      a {
+        color: #000;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    .search_container {
+      margin-bottom: 10px;
       width: 200px;
       input {
         background-color: #eee;
         border: 1px solid #333;
         box-sizing: border-box;
-        font-family: Source Code Pro;
+        font-family: Lato;
         font-size: 16px;
         outline: none;
         padding: 5px 7px;
@@ -142,25 +153,21 @@
       }
     }
     .active_country_container {
-      vertical-align: middle;
+      margin-top: 20px;
+      line-height: 30px;
       .active_country_name {
-        font-size: 36px;
+        font-size: 30px;
         &:after {
           content: ' ';
         }
       }
       .active_country_temp {
-        font-size: 36px;
-        letter-spacing: -0.08em;
-        line-height: 36px;
-        vertical-align: top;
+        font-size: 30px;
       }
     }
     .year_container {
-      font-size: 70px;
-      letter-spacing: 0.18em;
+      font-size: 60px;
       -webkit-appearance: none;
-      line-height: 65px;
     }
     .range_container {
       width: 200px;
@@ -188,7 +195,7 @@
   .scales_container {
     bottom: @position;
     color: #fff;
-    font-family: Source Code Pro;
+    font-family: Lato;
     opacity: @opacity;
     position: absolute;
     right: @position;

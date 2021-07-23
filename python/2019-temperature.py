@@ -34,25 +34,26 @@ import glob
 
 # Combine files.
 # https://stackoverflow.com/questions/20906474/import-multiple-csv-files-into-pandas-and-concatenate-into-one-dataframe
-all_files = glob.glob('../data/*.csv')
-li = []
-df_from_each_file = (pd.read_csv(f) for f in all_files)
+all_files = glob.glob('../data/tas*.csv')
+df_from_each_file = (pd.read_csv(f, sep=',', quotechar='"', header=0, skipinitialspace=True, names=['Temperature', 'Year', 'Month', 'Country', 'ISO3']) for f in all_files)
 df = pd.concat(df_from_each_file, ignore_index=True)
 
 # Define variables.
 # https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
-countries = ['AFG','ALB','DZA','AND','AGO','ATG','ARG','ARM','AUS','AUT','AZE','BHS','BHR','BGD','BRB','BLR','BEL','BLZ','BEN','BTN','BOL','BIH','BWA','BRA','BRN','BGR','BFA','BDI','KHM','CMR','CAN','CPV','CAF','TCD','CHL','CHN','COL','COM','COD','COG','CRI','CIV','HRV','CUB','CYP','CZE','DNK','DJI','DMA','DOM','ECU','EGY','SLV','GNQ','ERI','EST','ETH','FRO','FSM','FJI','FIN','FRA','GAB','GMB','GEO','DEU','GHA','GRC','GRL','GRD','GTM','GIN','GNB','GUY','HTI','HND','HUN','ISL','IND','IDN','IRN','IRQ','IRL','ISR','ITA','JAM','JPN','JOR','KAZ','KEN','KIR','PRK','KOR','KWT','KGZ','LAO','LVA','LBN','LSO','LBR','LBY','LIE','LTU','LUX','MKD','MDG','MWI','MYS','MDV','MLI','MLT','MHL','MRT','MUS','MEX','MDA','MCO','MNG','MAR','MOZ','MMR','NAM','NPL','NLD','NCL','NZL','NIC','NER','NGA','MNP','NOR','OMN','PAK','PLW','PAN','PNG','PRY','PER','PHL','POL','PRT','PRI','QAT','MNE','SRB','ROU','RUS','RWA','WSM','STP','SAU','SEN','SYC','SLE','SGP','SVK','SVN','SLB','SOM','ZAF','SSD','ESP','LKA','KNA','LCA','VCT','SDN','SUR','SWZ','SWE','CHE','SYR','TJK','TZA','THA','TLS','TGO','TON','TTO','TUN','TUR','TKM','TUV','UGA','UKR','ARE','GBR','USA','URY','UZB','VUT','VEN','VNM','YEM','ZMB','ZWE']
-# countries = ['AFG','ALB']
+countries = df.ISO3.unique().tolist()
+del countries[countries.index('ARM')]
+del countries[countries.index('BLZ')]
+# countries = ['CAN','FRA','FIN','BRA','USA','ESP']
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 # Let's calculate the monthly averages per country.
 averages = {}
-compare_year_start = 1981
-compare_year_end = 2010
+compare_year_start = 1951
+compare_year_end = 1980
 for country in countries:
   averages[country] = {}
   for month in months:
-    averages[country][month] = df.loc[(df['ISO3'] == country) & (df['Month'] == month) & (df['Year'] >= compare_year_start) & (df['Year'] <= compare_year_end)]['Temperature'].mean()
+    averages[country][month] = df.loc[(df['ISO3'] == country) & (df['Month'] == (month + ' Average')) & (df['Year'] >= compare_year_start) & (df['Year'] <= compare_year_end)]['Temperature'].mean()
 
 # Define a function that calculates the difference between given numbers.
 def distance(a, b): 
@@ -61,7 +62,7 @@ def distance(a, b):
 # Let's calculate the anomalities per country and per month.
 data = {}
 year_start = 1901
-year_end = 2016
+year_end = 2020
 for year in range(year_start, (year_end + 1), 1):
   data[year] = []
   for country in countries:
@@ -69,7 +70,7 @@ for year in range(year_start, (year_end + 1), 1):
     for month in months:
       month_data.append({
         'month':month,
-        'value':round(distance(averages[country][month], df.loc[(df['ISO3'] == country) & (df['Year'] == year) & (df['Month'] == month)]['Temperature'].values[0]), 1)
+        'value':round(distance(averages[country][month], df.loc[(df['ISO3'] == country) & (df['Year'] == year) & (df['Month'] == (month + ' Average'))]['Temperature'].values[0]), 1)
       })
     data[year].append({
       'country':country,
