@@ -187,7 +187,7 @@ class App extends Component {
       .attr('class', style.grid)
       .call(d3.axisLeft(yScale)
         .ticks(1)
-        .tickFormat(i => i + ' °C')
+        .tickFormat(i => i + '°C')
         .tickSizeInner(-200)
         .tickSizeOuter(0)
       );
@@ -346,7 +346,7 @@ class App extends Component {
                     {
                       data.data.map((month_data, i) => {
                         let title_first_line = this.state.year + ' ' + month_data.month;
-                        let title_second_line = data.country + ' ' + (month_data.value > 0 ? '+' : '') + month_data.value.toFixed(1) + ' °C';
+                        let title_second_line = data.country + ' ' + (month_data.value > 0 ? '+' : '') + month_data.value.toFixed(1) + '°C';
                         return (
                           <div key={i} className={style.month_value} style={{backgroundColor:this.value2color(month_data.value)}}>
                             <span className={style.tooltiptext}>{title_first_line}<br />{title_second_line}</span>
@@ -379,7 +379,7 @@ class App extends Component {
               </div>
               <div className={style.active_country_container}>
                 <span className={style.active_country_name}>{this.state.active_country_name}</span>
-                <span className={style.active_country_temp}>{this.state.active_country_temp !== null && (this.state.active_country_temp > 0 ? '+' : '') + this.state.active_country_temp.toFixed(1) + ' °C'}</span>
+                <span className={style.active_country_temp}>{this.state.active_country_temp !== null && (this.state.active_country_temp > 0 ? '+' : '') + this.state.active_country_temp.toFixed(1) + '°C'}</span>
               </div>
               <div className={style.year_container}>{this.state.year}</div>
               <div className={style.range_container} ref={this.rangeContainerRef}>
@@ -394,15 +394,15 @@ class App extends Component {
                 scales.map((scale, i) => {
                   // Place the yearly marker.
                   if (this.state.current_year_average_temp !== null && this.state.current_year_average_temp > scale  && this.state.current_year_average_temp < (scale + 0.05)) {
-                    return (<div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><div className={style.scale_text}><div className={style.year_text}>{this.state.year}</div><div>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed(1)} °C</div></div></div>);
+                    return (<div key={i} className={style.scale_container} style={{backgroundColor:'#fff'}}><div className={style.scale_text}><div className={style.year_text}>{this.state.year}</div><div>{(this.state.current_year_average_temp > 0 ? '+' : '') + this.state.current_year_average_temp.toFixed(1)}°C</div></div></div>);
                   }
                   // Place the zero point (disabled by css on default).
                   else if (scale > -0.025 && scale < 0.025) {
-                    return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_zero}><div>0 °C</div></div></div>);
+                    return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_zero}><div>0°C</div></div></div>);
                   }
                   // Place the initial value.
                   else if (scale < -0.625 && scale > -0.675) {
-                    return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_1901}><div>-0.6 °C</div></div></div>);
+                    return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale), borderBottom:'1px dashed rgba(255, 255, 255, 0.3)'}}><div className={style.scale_text_1901}><div>-0.6°C</div></div></div>);
                   }
                   else {
                     return (<div key={i} className={style.scale_container} style={{backgroundColor:this.value2color(scale)}}></div>);
