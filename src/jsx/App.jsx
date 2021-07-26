@@ -204,7 +204,7 @@ class App extends Component {
     d3.select('.' + style.current_avg_temp_line)
       .attr('class', style.current_avg_temp_line)
       .style('stroke', '#000')
-      .attr('d', line(this.state.active_country_temp_line.slice(0, this.state.year - 1901)));
+      .attr('d', line(this.state.active_country_temp_line.slice(0, this.state.year - 1900)));
   }
   getCurrentYearAverageTemp() {
     let temperature;
