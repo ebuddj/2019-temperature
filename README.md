@@ -8,12 +8,15 @@ Global warming is the long-term rise in the average temperature of the Earth's c
 
 This visualisation shows how the temperatures calculated by the CMIP Phase 5 model changes over time. Visualisation starts from year 1901 and ends to year 2020. Each line in the visualisation presents one country and each column presents a month. In the animation you can see the difference to the average temperature on that month in that country. The average is calculated per month and per country from years 1981–2010. Data comes from World Bank's Climate Knowledge Portal. Data can be used for non-commercial purposes.
 
-The color scale goes from -3°C to +3°C. Larger anomalies are scaled to the nearest minimum or maximum on the scale meaning that if the anomality is for example -10°C it is visualised as it was -2°C. This is done so that the big local anomalies won't blur the big picture. In the interactive version one can see the exact values. The total average seen on the scale is the non-weighted avarage from all countries per year.  
+The color scale goes from -3°C to +3°C. Larger anomalies are scaled to the nearest minimum or maximum on the scale meaning that if the anomality is for example -10°C it is visualised as it was -3°C. This is done so that the big local anomalies won't blur the big picture. In the interactive version one can see the exact values. The total average seen on the scale is the non-weighted avarage from all countries per year.  
 
 In the interactive version you can select your country of preference. Members can make a screen caption video of their own country's data if desired.
 
+Missing data for Armenia and Belize.
+
 **Sources**
 * [Worldbank](https://climateknowledgeportal.worldbank.org/download-data)
+* [NASA](https://data.giss.nasa.gov/gistemp/)
 * [Coupled Model Intercomparison Project](https://en.wikipedia.org/wiki/Coupled_Model_Intercomparison_Project)
 * [Global warming](https://en.wikipedia.org/wiki/Global_warming)
 
