@@ -22,7 +22,8 @@ Missing data for Armenia and Belize.
 
 **EBU links**
 * [Social Newswire](https://www.evnsocialnewswire.ch/climate/climate-animation-shows-changes-in-temperature-per-country-from-1901-2016-animation/)
-* [News Exchange](https://news-exchange.ebu.ch/item_detail/1db9a66f91368300da1d67928dfb1ede/2019_21060495)
+* [News Exchange](https://news-exchange.ebu.ch/item_detail/1db9a66f91368300da1d67928dfb1ede/2019_21060495), 2019-12-18
+* [News Exchange](https://news-exchange.ebu.ch/item_detail/2ee6d07895acda9a9b3ca64b2d57a6e2/2021_10034934), 2021-08-06
 
 **Used by**
 * [DW/Germany](https://twitter.com/dwnews/status/1207232031492640769)
