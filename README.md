@@ -16,7 +16,9 @@ Missing data for Armenia and Belize.
 
 **Sources**
 * [Worldbank](https://climateknowledgeportal.worldbank.org/download-data)
+  * Data is not intended for commercial purposes. Please properly cite any data used from the CCKP. World Bank Group, Climate Change Knowledge Portal. 
 * [NASA](https://data.giss.nasa.gov/gistemp/)
+  * When referencing the GISTEMP v4 data provided here, please cite both this webpage and also our most recent scholarly publication about the data. In citing the webpage, be sure to include the date of access. 
 * [Coupled Model Intercomparison Project](https://en.wikipedia.org/wiki/Coupled_Model_Intercomparison_Project)
 * [Global warming](https://en.wikipedia.org/wiki/Global_warming)
 
